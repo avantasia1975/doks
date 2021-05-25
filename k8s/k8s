@@ -1,0 +1,57 @@
+Kubernetes
+
+Objekte: 
+Nodes - Hosts auf denen pods laufen kann sowohl nen VM als auch nen Rechner
+sein.
+
+Pods - Laufen auf Nodes, enthalten die laufende APP bzw. die dazugehörigen
+Container. Darin laufende Container teilen sich einen IP adressraum und sind
+untereinander erreichbar zum Beispiel die App und die DB.
+
+deployment - Das Deployment beschreibt den Zustand der App zum Beispiel welches
+Image genutzt wird und wieviele replicas laufen. Pods werden aus der
+Beschreibung im deployment erzeugt. 
+
+Service - Stellt ein "Netzwerk" für die pods zur Verfügung
+
+rs - Das replica set für ein deploymen
+
+
+
+
+kubectl command:
+kubectl get - Gibt Informationen über vorhandenen Objecte aus 
+kubectl get deployments
+kubectl get pods 
+
+
+kubectl describe - Gibt detaillierte informationen über ein Objekt oder die Objekte aus.
+kubectl describe pods
+kubectl describe pod PODNAME
+
+kubectl create - Erstellt nen deployment entweder direct oder aus ner
+                 Datei
+kubectl create deployment kubernetes-test --image=hello-world 
+kubectl create -f DATEI.yml
+
+kubectl proxy - Erstellt einen Proxy zum cluster auf localhost:8001 so kann
+                mittels Browser oder cURL zugegriffen werden
+curl http://127.0.0.1:8001/version
+curl http://localhost:8001/api/v1/namespaces/default/pods/$POD_NAME/proxy/
+
+kubectl scale - Verändert die Anzahl der replicas eines Deployments,
+                replicasets 
+kubectl scale deployments/DEPLOYMENTNAME --replicas=4
+
+kubectl set - Verändern eines laufenden deployments
+kubectl set image deployments/DEPLOYMENTNAME ALTESIMAGE=NEUESIMAGE
+
+kubectl rollout - Status und anderes über nen rollout 
+kubectl rollout status deployments/deployment
+
+kubectl config - Die lokale K8s config
+kubectl config view
+
+
+
+/

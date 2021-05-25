@@ -1,0 +1,30 @@
+Terraform ermöglicht es Infrastruktur als Code bereit zu stellen.
+Der wichtigste Unterschied zu anderen Tools wie Puppet, Chef oder Ansible ist,
+das hier ein Endzustand definiert wird während bei andreren tools einfach nur
+etwas hinzu oder weg kommt ohen den aktuellen Zustand zu prüfen.
+Zum beispiel würde bei Ansible 5 hosts hinzu kommen wenn ich die Anzahl
+definiere während bei TF die absolute Zahl der Hosts definiert würde.
+
+
+terraform init - Erstellt ein 'Project' im aktuellen Verzeichnis. i
+terraform plan - Eine art DIFF, zeigt den Unterschied zwischen der aktuellen
+und der entstehenden Struktur an. + wird hinzu gefügt, - entfernt und ~
+verändert.
+terraform apply - wendet die in der main.tf enthaltene Struktur an.
+terraform destroy - entfernt die definierte Struktur 
+
+provider "aws" {
+  region = "us-east-2"
+  }
+
+The general syntax for a Terraform resource is:
+resource "<PROVIDER>_<TYPE>" "<NAME>" {
+ [CONFIG …]
+ }
+
+ Zum Beispiel
+ resource "aws_instance" "example" {
+   ami           = "ami-0c55b159cbfafe1f0"
+     instance_type = "t2.micro"
+     
+
