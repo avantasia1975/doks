@@ -1,0 +1,58 @@
+OMD ( openmonitoringdistribution )
+
+Befehle
+
+omd create SITE             -  erstellt eine SITE namens SITE die über http://HOST/SITE
+                               erreichbar ist. Es wird ein Benutzer names SITE erstellt und die configuration
+                               in desse HOME abgelegt. Alle Befehle sollten danach als user
+                               SITE ausgeführt werden können aber auch als root unter
+                               nennung des SITE namen gemacht werden.
+
+omd start/stop/status       - Startet/Stoppt die SITE bzw. gibt dessen status
+                              aus
+
+omd config ( set VAR WERT ) - Öffnet die config bzw setzt einen wert. SITE muss
+                              gestoppt sein
+                              
+
+
+
+cmk -I               - Findet und ergänzt fehlende Services.
+cmk -II              - Verwirft alle zuvor erkannten Services und führt die Erkennung komplett neu durch.
+cmk -R --restart     - Erzeugt eine neue Konfiguration für den Kern und startet diesen dann neu (analog zu omd restart core). Das ist die bei Nagios vorgesehende Methode.
+
+cmk -O --reload      - Erzeugt die Konfiguration für den Kern und lädt diese ohne einen Neustart im laufenden Betrieb (analog zu omd reload core). Das ist die beim CMC empfohlene Variante.
+		       Achtung: Bei Nagios als Kern funktioniert diese Option zwar auch, kann aber zu Speicherlöchern und anderen Instabilitäten führen. 
+                       Außerdem wird dort ohnehin kein echter Reload ausgeführt, sondern nur der Prozess quasi innerlich runter- und wieder hochgefahren.
+
+cmk -C --compile     - Nur bei Nagios sinnvoll: Erzeugt die vorkompilierten Python-Dateien unter var/check_mk/precompiled neu, welche die Ausführung von Checkmk während des Monitorings stark beschleunigen.
+                       Dieser Vorgang ist in cmk -R mit enthalten.
+
+cmk -U --update      - Erzeugt die Konfiguration für den Kern, ohne diese zu aktivieren. Bei Nagios wird dabei zusätzlich automatisch auch der Schritt cmk -C ausgeführt.
+
+cmk -B               - Erzeugt nur die Konfiguration für den Kern, ohne diese zu aktivieren. Bei Nagios als Kern wird hier cmk -C nicht mit ausgeführt.
+
+cmk -N               - Nur Nagios: Gibt zu Diagnosezwecken die zu erzeugende Konfiguration auf der Standardausgabe aus, ohne die eigentliche Konfigurationsdatei zu ändern. 
+		       Sie können dabei den Namen eines Hosts angeben, um nur die Konfiguration dieses Hosts zu sehen (z.B. cmk -N myserver123).
+
+cmk -v               - Checkergebnisse ausgeben: Ohne diese Option sehen nur Sie die Ausgabe des Checkmk-Services selbst und nicht die Resultate der anderen Services.
+cmk -n               - Trockenlauf: Ergebnisse nicht an den Kern übermitteln, Performancecounter nicht aktualisieren.
+
+cmk -d myserver123   - Daten vom Checkmk-Agenten holen und ausgeben.
+
+cmk -D myserver123   - Konfiguration von Hosttags, Gruppen und Services anzeigen.
+
+cmk --paths          - Wichtige Verzeichnisse von Checkmk: Was liegt wo?
+
+
+cmk -X               - Konfiguration in main.mk und etc/check_mk/conf.d auf Syntax prüfen.
+
+cmk --list-tag mytag - Namen aller konfigurierten Hosts mit Tag mytag ausgeben.
+
+cmk -L               - Liste aller Check-Plugins ausgeben.
+
+cmk -m               - Katalog der Dokumentation der Check-Plugins interaktiv aufrufen.
+
+
+cmk -M df            - Dokumentation des Check-Plugins df anzeigen
+
